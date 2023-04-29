@@ -235,19 +235,27 @@ class Afiliado {
     }
 
     getPermanencia() {
-        if(this.activo){
+        if (this.activo) {
             let fechaIng = new Date(this.fechaIngreso);
             let fechaActual = new Date();
-            let diferenciaMs = fechaActual - fechaIng;
-    
-            // Convertir la diferencia en años, meses y días
-            let msPorDia = 1000 * 60 * 60 * 24;
-            let dias = Math.floor(diferenciaMs / msPorDia);
-            let meses = Math.floor(dias / 30) ;
-            let anios = Math.floor(meses / 12);
-            return `${anios>0?anios+' años, ':''}${meses>0?meses+' meses, ':''}${dias>0?dias+' dias.':''}`
-    
-        }else{
+            let anios = fechaActual.getFullYear() - fechaIng.getFullYear();
+            let meses = fechaActual.getMonth() - fechaIng.getMonth();
+            let dias = fechaActual.getDate() - fechaIng.getDate();
+
+            // ajuste para evitar días y meses negativos
+            if (meses < 0 || (meses === 0 && dias < 0)) {
+                anios--;
+                if (meses < 0) {
+                    meses += 12;
+                }
+                if (dias < 0) {
+                    const ultimoMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 0);
+                    dias += ultimoMes.getDate();
+                }
+            }
+            return `${anios > 0 ? anios + ' años, ' : ''}${meses > 0 ? meses + ' meses, ' : ''}${dias > 0 ? dias + ' dias.' : ''}`
+
+        } else {
             return 0;
         }
         // console.log('permanencia',this.fechaIngreso)
@@ -265,3 +273,5 @@ function currencyFormatter({ currency, value }) {
     })
     return formatter.format(value)
 }
+
+
