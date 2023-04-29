@@ -1,0 +1,25 @@
+body {
+    background-color: #d9d9d9;
+}
+
+.glasmorfismo {
+    background: rgba(255, 255, 255, 0.66);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.7px);
+    -webkit-backdrop-filter: blur(7.7px);
+}
+#button__submit{
+    background-color: #00C7CB;
+    border-color:#00C7CB ;
+    letter-spacing: .3rem;
+    font-weight: bolder;
+    font-size: 1.4rem;
+}
+#button__submit:hover{
+    background-color: #00b3b6;
+}
+
+.contenedor{
+    margin-bottom:200px;
+}
