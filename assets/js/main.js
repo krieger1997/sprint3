@@ -8,10 +8,10 @@ const btnLimpiar = document.querySelector("#button__limpiar");
 // var  persona;
 
 window.onload = function () {//para que cuando se refresque, estén desmarcados
-   limpiar()
+    limpiar()
 }
 
-limpiar=()=>{
+limpiar = () => {
     checkActivo.checked = false;
     checkCarga.checked = false;
     cantidadCargaInput.required = false;
@@ -76,8 +76,8 @@ form.addEventListener("submit", (event) => {
         fechaNac.value,
         activo.checked,
         fechaIngreso.value,
-        sueldoActual.value==''?0:sueldoActual.value,
-        sueldoAnterior.value==''?0:sueldoAnterior.value,
+        sueldoActual.value == '' ? 0 : sueldoActual.value,
+        sueldoAnterior.value == '' ? 0 : sueldoAnterior.value,
         chkCarga.checked,
         cantidadCarga.value == '' ? 0 : cantidadCarga.value
     );
@@ -85,7 +85,7 @@ form.addEventListener("submit", (event) => {
     const fila = tabla.insertRow();
     const celdaNombre = fila.insertCell();
     celdaNombre.innerHTML = persona.getNombre();
-    
+
     const celdaApellidos = fila.insertCell();
     celdaApellidos.innerHTML = persona.getApellidos();
 
@@ -121,7 +121,7 @@ form.addEventListener("submit", (event) => {
 });
 
 
-btnLimpiar.addEventListener("click",limpiar)
+btnLimpiar.addEventListener("click", limpiar)
 
 
 
@@ -164,11 +164,11 @@ class Afiliado {
     montoAsignacion = 0;
     sueldoTotal = this.sueldoActual;
 
-    getNombre(){
+    getNombre() {
         return this.nombre;
     }
 
-    getApellidos(){
+    getApellidos() {
         return this.apellidos;
     }
 
@@ -179,8 +179,8 @@ class Afiliado {
         return currencyFormatter({ currency: "CLP", value: this.sueldoActual });
     }
 
-    getCarga(){
-        return this.carga?"SI":"NO";
+    getCarga() {
+        return this.carga ? "SI" : "NO";
     }
 
     getAsignacion() {
@@ -198,13 +198,13 @@ class Afiliado {
         return `${currencyFormatter({ currency: "CLP", value: this.montoAsignacion })}`;
     }
 
-    getCantidadCarga(){
+    getCantidadCarga() {
         return this.cantidadCarga;
     }
 
 
     getSueldoTotal() {
-        if(parseInt(this.sueldoActual) > 0){
+        if (parseInt(this.sueldoActual) > 0) {
 
         }
         return `${currencyFormatter({ currency: "CLP", value: (parseInt(this.montoAsignacion * this.cantidadCarga) + parseInt(this.sueldoActual)) })}`
@@ -225,19 +225,27 @@ class Afiliado {
     }
 
     getPermanencia() {
-        if(this.activo){
+        if (this.activo) {
             let fechaIng = new Date(this.fechaIngreso);
             let fechaActual = new Date();
-            let diferenciaMs = fechaActual - fechaIng;
-    
-            // Convertir la diferencia en años, meses y días
-            let msPorDia = 1000 * 60 * 60 * 24;
-            let dias = Math.floor(diferenciaMs / msPorDia);
-            let meses = Math.floor(dias / 30) ;
-            let anios = Math.floor(meses / 12);
-            return `${anios>0?anios+' años, ':''}${meses>0?meses+' meses, ':''}${dias>0?dias+' dias.':''}`
-    
-        }else{
+            let anios = fechaActual.getFullYear() - fechaIng.getFullYear();
+            let meses = fechaActual.getMonth() - fechaIng.getMonth();
+            let dias = fechaActual.getDate() - fechaIng.getDate();
+
+            // ajuste para evitar días y meses negativos
+            if (meses < 0 || (meses === 0 && dias < 0)) {
+                anios--;
+                if (meses < 0) {
+                    meses += 12;
+                }
+                if (dias < 0) {
+                    const ultimoMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 0);
+                    dias += ultimoMes.getDate();
+                }
+            }
+            return `${anios > 0 ? anios + ' años, ' : ''}${meses > 0 ? meses + ' meses, ' : ''}${dias > 0 ? dias + ' dias.' : ''}`
+
+        } else {
             return 0;
         }
         // console.log('permanencia',this.fechaIngreso)
@@ -255,3 +263,5 @@ function currencyFormatter({ currency, value }) {
     })
     return formatter.format(value)
 }
+
+
