@@ -9,17 +9,49 @@ body {
     backdrop-filter: blur(7.7px);
     -webkit-backdrop-filter: blur(7.7px);
 }
-#button__submit{
+
+#button__submit {
     background-color: #00C7CB;
-    border-color:#00C7CB ;
+    border-color: #00C7CB;
     letter-spacing: .3rem;
     font-weight: bolder;
     font-size: 1.4rem;
 }
-#button__submit:hover{
+
+#button__submit:hover {
     background-color: #00b3b6;
 }
 
-.contenedor{
-    margin-bottom:200px;
+.contenedor {
+    min-height: 80vh;
+}
+
+.switch {
+    width: 4rem !important;
+    height: 2rem !important;
+}
+
+.form-check-input:checked {
+    background-color: #00C7CB;
+    border-color: #00C7CB;
+}
+
+.form-check-input:focus {
+    border-color: #00b3b6;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem #00b3b64b;
+}
+
+
+.oculto {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease-in-out, height 0.5s ease-in-out;
+}
+
+.visible {
+    opacity: 1;
+    height: auto;
+    transition: opacity 0.5s ease-in-out, height 0.5s ease-in-out;
 }

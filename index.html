@@ -26,82 +26,104 @@
         <!-- fin del navbar bootstrap -->
     </div>
 
-    <div class="container-fluid contenedor pt-5 px-5">
+    <div class="container-fluid contenedor mb-5 pt-5 px-5">
         <div class="row">
-            <div class="col-xl-4 py-4 glasmorfismo mb-3" >
+            <div class="col-xl-4 py-4 glasmorfismo mb-3">
                 <form id="formulario">
-                    <div class="row">
+                    <div class="row ">
+                        <div class="col-12">
+                            <h3>Datos personales</h3>
+                        </div>
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" required>
+                                <input type="text" class="form-control" id="nombre" required placeholder="Pedro">
                                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="apellidos" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="apellidos" required>
+                                <input type="text" class="form-control" id="apellidos" required placeholder="Pascal">
                             </div>
                         </div>
 
-                        <div class="col">
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="activo">
+                        <div class="col-md-6">
+                            <div class="mb-3 ">
+                                <label class="form-label" for="fechaNac">Fecha Nacimiento</label>
+                                <input type="date" class="form-control" id="fechaNac" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 d-flex justify-content-center align-items-center">
+                            <div class="form-check form-switch d-flex align-items-center gap-2">
+                                <input class="form-check-input switch" type="checkbox" role="switch" id="activo" >
                                 <label class="form-check-label" for="activo">Trabajador activo</label>
                             </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3 oculto" id="segundo">
+                        <div class="col-12">
+                            <h3>Datos laborales</h3>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-3 ">
+                                <label class="form-label" for="fechaIngreso">Fecha Ingreso organización</label>
+                                <input type="date" class="form-control" id="fechaIngreso" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="sueldoActual">Sueldo actual</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="sueldoActual">
+                            </div>
+                        </div>
+                                                
+                        <div class="col-md-6">
+                            <label class="form-label" for="sueldoAnterior">Sueldo semestre anterior</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="sueldoAnterior">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 d-flex justify-content-center align-items-center">
+                            <div class="form-check form-switch d-flex align-items-center gap-2">
+                                <input class="form-check-input switch" type="checkbox" role="switch" id="carga">
+                                <label class="form-check-label" for="carga">Cargas familiares</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="cantidadCarga" class="form-label">Cantidad Cargas</label>
+                                <input type="number" min="1" max="20" class="form-control" id="cantidadCarga" disabled>
+                            </div>
                         </div>
 
                     </div>
 
 
 
-
-                    <!-- <div class="row" >
-                        <div class="col-6"><div class="mb-3">
-                            <label for="sueldoActual" class="form-label">Sueldo actual</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" id="sueldoActual" required>
-                            </div>
-                        </div></div>
-                        <div class="col-6"> <div class="mb-3">
-                            <label for="sueldoAnterior" class="form-label">Sueldo semestre anterior</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" id="sueldoAnterior" required>
-                            </div>
-                        </div></div>
-                    </div> -->
-
-
-
-
-
-
-
-
-                    <!-- <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="carga">
-                        <label class="form-check-label" for="carga">Posee carga familiar</label>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="cantidadCarga" class="form-label">Cantidad carga familiar</label>
-                        <input type="number" class="form-control" id="cantidadCarga" disabled>
-                    </div> -->
-                    <div class="d-grid gap-2">
+                    <div class="d-grid gap-2 mt-3" id="submit">
                         <button id="button__submit" type="submit" class="btn btn-primary">Enviar</button>
-                      </div>
+                    </div>
+                    <div class="d-grid gap-2 mt-3" id="limpiar" class="oculto">
+                        <button id="button__limpiar" type="submit" class="btn btn-info">Limpiar</button>
+                    </div>
                 </form>
 
-                <div id="resultado" class="form-text text-succes fw-bold"></div>
 
 
 
 
 
-                
+
 
 
 
@@ -109,78 +131,39 @@
 
             </div>
             <div class="col-xl-1"></div>
-            <div class="col-xl-7 glasmorfismo py-3" style="overflow-x: auto;">
-                <table  class="table table-light table-striped" >
-                    <thead class="table-dark" >
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Fecha de Nacimiento</th>
-                        <th>Sueldo Actual</th>
-                        <th>Sueldo Semestre Anterior</th>
-                        <th>Carga Familiar</th>
-                        <th>Cantidad de Cargas Familiares</th>
-                      </tr>
+            <div class="col-xl-7 glasmorfismo py-3 table-responsive" >
+                <table class="table table-light table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Apellido</th>
+                            <th class="text-center">Fecha<br>Nacimiento</th>
+                           
+                            <th class="text-center">Sueldo<br>Actual</th>
+                            <!-- <th class="text-center">Sueldo<br>Semestre Anterior</th> -->
+                            <th class="text-center">Cargas<br>Familiares</th>
+                            <th class="text-center">Monto<br>Asignación<br>Simple</th>
+                            <th class="text-center">Cantidad<br>Cargas Familiares</th>
+                            <!-- <th class="text-center">Monto<br>Asignación<br>Total</th> -->
+                            <th class="text-center">Sueldo<br>Final</th>
+                            <th class="text-center">Permanencia<br>Trabajo</th>
+                        </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>María</td>
-                        <td>García</td>
-                        <td>10/02/1987</td>
-                        <td>$250,000</td>
-                        <td>$230,000</td>
-                        <td>Si</td>
-                        <td>2</td>
-                      </tr>
-                      <tr>
-                        <td>Juan</td>
-                        <td>Pérez</td>
-                        <td>08/07/1992</td>
-                        <td>$320,000</td>
-                        <td>$280,000</td>
-                        <td>Si</td>
-                        <td>1</td>
-                      </tr>
-                      <tr>
-                        <td>Carlos</td>
-                        <td>Martínez</td>
-                        <td>22/05/1978</td>
-                        <td>$450,000</td>
-                        <td>$420,000</td>
-                        <td>No</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>Lucía</td>
-                        <td>Rodríguez</td>
-                        <td>16/12/1985</td>
-                        <td>$280,000</td>
-                        <td>$260,000</td>
-                        <td>Si</td>
-                        <td>3</td>
-                      </tr>
-                      <tr>
-                        <td>Pablo</td>
-                        <td>Gómez</td>
-                        <td>03/09/1995</td>
-                        <td>$210,000</td>
-                        <td>$200,000</td>
-                        <td>No</td>
-                        <td></td>
-                      </tr>
+                    <tbody id="tbody">
+                        
                     </tbody>
-                  </table>
+                </table>
             </div>
         </div>
 
 
-       
+
 
 
 
     </div>
 
-    <div class="div-footer bg-body-tertiary bg-dark fixed-bottom py-2" data-bs-theme="dark">
+    <div class="div-footer bg-body-tertiary bg-dark  py-2" data-bs-theme="dark">
 
         <footer class="">
             <p class="d-flex justify-content-center text-light">

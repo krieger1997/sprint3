@@ -1,18 +1,43 @@
 const form = document.querySelector("#formulario");
 const checkCarga = document.querySelector("#carga");
+const checkActivo = document.querySelector("#activo");
+const segundoDiv = document.querySelector("#segundo");
 const cantidadCargaInput = document.querySelector("#cantidadCarga");
 const resultado = document.querySelector("#resultado");
+const btnLimpiar = document.querySelector("#button__limpiar");
 // var  persona;
+
+window.onload = function () {//para que cuando se refresque, estén desmarcados
+   limpiar()
+}
+
+limpiar=()=>{
+    checkActivo.checked = false;
+    checkCarga.checked = false;
+    cantidadCargaInput.required = false;
+    segundoDiv.classList.remove('visible');
+    segundoDiv.classList.add('oculto');
+    document.querySelector("#fechaIngreso").required = false;
+    document.querySelector("#sueldoActual").required = false;
+    document.querySelector("#sueldoAnterior").required = false;
+
+    document.querySelector("#submit").classList.remove('oculto');
+    document.querySelector("#submit").classList.add('visible');
+
+    document.querySelector("#limpiar").classList.remove('visible');
+    document.querySelector("#limpiar").classList.add('oculto');
+}
 
 
 //cuando se checkea el carga, se habilita el cantidadCarga y queda como required
 //cuando se descheckea, lo contrario
-checkCarga.addEventListener("change",()=>{
+checkCarga.addEventListener("change", () => {
+
     cantidadCargaInput.value = '';
     if (checkCarga.checked) {
         cantidadCargaInput.disabled = false;
         cantidadCargaInput.required = true;
-    }else{
+    } else {
         cantidadCargaInput.disabled = true;
         cantidadCargaInput.required = false;
     }
@@ -20,45 +45,103 @@ checkCarga.addEventListener("change",()=>{
 
 
 //en submit se recuperan valores, se crea objeto de clase afiliado y se ejecutan sus metodos
-form.addEventListener("submit",(event)=>{
+form.addEventListener("submit", (event) => {
+    const inputs = form.getElementsByTagName("input");
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = true;
+    }
+    document.querySelector("#submit").classList.remove('visible');
+    document.querySelector("#submit").classList.add('oculto');
+
+    document.querySelector("#limpiar").classList.remove('oculto');
+    document.querySelector("#limpiar").classList.add('visible');
+
+
     event.preventDefault();
     let nombre = document.querySelector("#nombre");
     let apellidos = document.querySelector("#apellidos");
+    let fechaNac = document.querySelector("#fechaNac");
+    let activo = document.querySelector("#activo");
+    let fechaIngreso = document.querySelector("#fechaIngreso");
     let sueldoActual = document.querySelector("#sueldoActual");
     let sueldoAnterior = document.querySelector("#sueldoAnterior");
     let chkCarga = checkCarga;
     let cantidadCarga = cantidadCargaInput;
+
+
+
     const persona = new Afiliado(
         nombre.value,
         apellidos.value,
-        sueldoActual.value,
-        sueldoAnterior.value,
-        chkCarga.value,
-        cantidadCarga.value==''?0:cantidadCarga.value
+        fechaNac.value,
+        activo.checked,
+        fechaIngreso.value,
+        sueldoActual.value==''?0:sueldoActual.value,
+        sueldoAnterior.value==''?0:sueldoAnterior.value,
+        chkCarga.checked,
+        cantidadCarga.value == '' ? 0 : cantidadCarga.value
     );
-    let nombreCompletoRes = persona.getNombreCompleto();
-    let sueldoActualRes = persona.getSueldoActual();
-    let montoCargaRes = persona.getMontoCarga();
-    let sueldoTotalRes = persona.getSueldoTotal();
-console.log(nombreCompletoRes);
-
-
-    resultado.innerHTML= `
-    <p>Su nombre es ${nombreCompletoRes}</p>
-    <p>Su sueldo actual es ${sueldoActualRes}</p>
-    <p>${montoCargaRes}</p>
-    <p>${sueldoTotalRes}</p>
-    `;
+    const tabla = document.querySelector("#tbody");
+    const fila = tabla.insertRow();
+    const celdaNombre = fila.insertCell();
+    celdaNombre.innerHTML = persona.getNombre();
     
+    const celdaApellidos = fila.insertCell();
+    celdaApellidos.innerHTML = persona.getApellidos();
+
+    const celdaFechaNac = fila.insertCell();
+    celdaFechaNac.innerHTML = persona.getFechaNacimiento();
+
+    const celdaSueldo = fila.insertCell();
+    celdaSueldo.innerHTML = persona.getSueldoActual();
+
+    const celdaCargas = fila.insertCell();
+    celdaCargas.innerHTML = persona.getCarga();
+
+    const celdaAsig = fila.insertCell();
+    celdaAsig.innerHTML = persona.getAsignacion();
+
+    const celdaCantidad = fila.insertCell();
+    celdaCantidad.innerHTML = persona.getCantidadCarga();
+
+    const celdaSueldoFinal = fila.insertCell();
+    celdaSueldoFinal.innerHTML = persona.getSueldoTotal();
+
+    const celdaPermanencia = fila.insertCell();
+    celdaPermanencia.innerHTML = persona.getPermanencia();
 
 
 
-    
+
+
     form.reset();
-
+    limpiar();
 
 
 });
+
+
+btnLimpiar.addEventListener("click",limpiar)
+
+
+
+
+checkActivo.addEventListener("change", () => {
+    if (checkActivo.checked) {
+        segundoDiv.classList.remove('oculto');
+        segundoDiv.classList.add('visible');
+        document.querySelector("#fechaIngreso").required = true;
+        document.querySelector("#sueldoActual").required = true;
+        document.querySelector("#sueldoAnterior").required = true;
+    } else {
+        segundoDiv.classList.remove('visible');
+        segundoDiv.classList.add('oculto');
+        document.querySelector("#fechaIngreso").required = false;
+        document.querySelector("#sueldoActual").required = false;
+        document.querySelector("#sueldoAnterior").required = false;
+    }
+})
+
 
 
 
@@ -66,61 +149,109 @@ console.log(nombreCompletoRes);
 
 //CLASES
 
-class Afiliado{
-    constructor(nombre, apellidos, sueldoActual, sueldoAnterior, carga, cantidadCarga){
+class Afiliado {
+    constructor(nombre, apellidos, fechaNac, activo, fechaIngreso, sueldoActual, sueldoAnterior, carga, cantidadCarga) {
         this.nombre = nombre.toUpperCase();
         this.apellidos = apellidos.toUpperCase();
+        this.fechaNac = fechaNac;
+        this.activo = activo;
+        this.fechaIngreso = fechaIngreso;
         this.sueldoActual = sueldoActual;
         this.sueldoAnterior = sueldoAnterior;
         this.carga = carga;
         this.cantidadCarga = cantidadCarga;
     }
     montoAsignacion = 0;
-    sueldoTotal=this.sueldoActual;
-    getNombreCompleto(){
+    sueldoTotal = this.sueldoActual;
+
+    getNombre(){
+        return this.nombre;
+    }
+
+    getApellidos(){
+        return this.apellidos;
+    }
+
+    getNombreCompleto() {
         return `${this.nombre} ${this.apellidos}`;
     }
-    getSueldoActual(){
-        return  currencyFormatter( { currency: "CLP", value: this.sueldoActual } );
+    getSueldoActual() {
+        return currencyFormatter({ currency: "CLP", value: this.sueldoActual });
     }
-    getMontoCarga(){
-        if(carga){
-            if(this.sueldoAnterior<=429899){
+
+    getCarga(){
+        return this.carga?"SI":"NO";
+    }
+
+    getAsignacion() {
+        if (this.carga) {
+            if (this.sueldoAnterior <= 429899) {
                 this.montoAsignacion = 16828;
-            }else if(this.sueldoAnterior > 429899 && this.sueldoAnterior <= 627913){
+            } else if (this.sueldoAnterior > 429899 && this.sueldoAnterior <= 627913) {
                 this.montoAsignacion = 10327;
-            }else if(this.sueldoAnterior > 627913 && this.sueldoAnterior <= 979330 ){
+            } else if (this.sueldoAnterior > 627913 && this.sueldoAnterior <= 979330) {
                 this.montoAsignacion = 3264;
-            }else if(this.sueldoAnterior > 979330){
+            } else if (this.sueldoAnterior > 979330) {
                 this.montoAsignacion = 0;
             }
-
-            return `Su monto de asignación familiar es ${currencyFormatter( { currency: "CLP", value: this.montoAsignacion } )}, por lo que en total recibiría ${currencyFormatter( { currency: "CLP", value: (this.montoAsignacion*this.cantidadCarga) } )} de acuerdo a la cantidad de cargas.`;
-
-
-        }else{
-            return `No posee carga, por lo tanto, su monto de asignación familiar es ${currencyFormatter( { currency: "CLP", value: this.montoAsignacion } )}`;
         }
+        return `${currencyFormatter({ currency: "CLP", value: this.montoAsignacion })}`;
     }
 
-    getSueldoTotal(){
-        return `Su sueldo total (sueldo actual + total asignación) es ${currencyFormatter( { currency: "CLP", value: (parseInt(this.montoAsignacion * this.cantidadCarga)+parseInt(this.sueldoActual)) } )}`
+    getCantidadCarga(){
+        return this.cantidadCarga;
+    }
+
+
+    getSueldoTotal() {
+        if(parseInt(this.sueldoActual) > 0){
+
+        }
+        return `${currencyFormatter({ currency: "CLP", value: (parseInt(this.montoAsignacion * this.cantidadCarga) + parseInt(this.sueldoActual)) })}`
+    }
+
+    getSueldoAnterior() {
+        return currencyFormatter({ currency: "CLP", value: this.sueldoAnterior });
+    }
+
+    getFechaNacimiento() {
+        let [anio, mes, dia] = this.fechaNac.split("-");
+        return `${dia}/${mes}/${anio}`;
+    }
+
+    getFechaIngreso() {
+        let [anio, mes, dia] = this.fechaIngreso.split("-");
+        return `${dia}/${mes}/${anio}`;
+    }
+
+    getPermanencia() {
+        if(this.activo){
+            let fechaIng = new Date(this.fechaIngreso);
+            let fechaActual = new Date();
+            let diferenciaMs = fechaActual - fechaIng;
+    
+            // Convertir la diferencia en años, meses y días
+            let msPorDia = 1000 * 60 * 60 * 24;
+            let dias = Math.floor(diferenciaMs / msPorDia);
+            let meses = Math.floor(dias / 30) ;
+            let anios = Math.floor(meses / 12);
+            return `${anios>0?anios+' años, ':''}${meses>0?meses+' meses, ':''}${dias>0?dias+' dias.':''}`
+    
+        }else{
+            return 0;
+        }
+        // console.log('permanencia',this.fechaIngreso)
     }
 }
 
 
 
 
-
-
-
-
-
-function currencyFormatter({ currency, value}) {
+function currencyFormatter({ currency, value }) {
     const formatter = new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      minimumFractionDigits: 0,
-      currency
-    }) 
+        style: 'currency',
+        minimumFractionDigits: 0,
+        currency
+    })
     return formatter.format(value)
 }
