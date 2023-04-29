@@ -10,16 +10,16 @@ body {
     -webkit-backdrop-filter: blur(7.7px);
 }
 
-#button__submit {
-    background-color: #00C7CB;
-    border-color: #00C7CB;
-    letter-spacing: .3rem;
-    font-weight: bolder;
-    font-size: 1.4rem;
+.botonDePana {
+    background-color: #00C7CB!important;
+    border-color: #00C7CB!important;
+    letter-spacing: .3rem!important;
+    font-weight: bolder!important;
+    font-size: 1.4rem!important;
 }
 
-#button__submit:hover {
-    background-color: #00b3b6;
+.botonDePana:hover {
+    background-color: #00b3b6!important;
 }
 
 .contenedor {

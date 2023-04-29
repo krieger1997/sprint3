@@ -8,24 +8,34 @@ const btnLimpiar = document.querySelector("#button__limpiar");
 // var  persona;
 
 window.onload = function () {//para que cuando se refresque, estén desmarcados
-   limpiar()
+    limpiar(true)
 }
 
-limpiar=()=>{
-    checkActivo.checked = false;
-    checkCarga.checked = false;
+limpiar = (cambiaBotones = false) => {
+    
     cantidadCargaInput.required = false;
-    segundoDiv.classList.remove('visible');
-    segundoDiv.classList.add('oculto');
+    
     document.querySelector("#fechaIngreso").required = false;
     document.querySelector("#sueldoActual").required = false;
     document.querySelector("#sueldoAnterior").required = false;
+    if (cambiaBotones) {
+        document.querySelector("#submit").classList.remove('oculto');
+        document.querySelector("#submit").classList.add('visible');
 
-    document.querySelector("#submit").classList.remove('oculto');
-    document.querySelector("#submit").classList.add('visible');
-
-    document.querySelector("#limpiar").classList.remove('visible');
-    document.querySelector("#limpiar").classList.add('oculto');
+        document.querySelector("#limpiar").classList.remove('visible');
+        document.querySelector("#limpiar").classList.add('oculto');
+        const inputs = form.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = false;
+        }
+        cantidadCargaInput.disabled = true;
+        cantidadCargaInput.required = false;
+        segundoDiv.classList.remove('visible');
+        segundoDiv.classList.add('oculto');
+        checkActivo.checked = false;
+        checkCarga.checked = false;
+        form.reset();
+    }
 }
 
 
@@ -76,8 +86,8 @@ form.addEventListener("submit", (event) => {
         fechaNac.value,
         activo.checked,
         fechaIngreso.value,
-        sueldoActual.value==''?0:sueldoActual.value,
-        sueldoAnterior.value==''?0:sueldoAnterior.value,
+        sueldoActual.value == '' ? 0 : sueldoActual.value,
+        sueldoAnterior.value == '' ? 0 : sueldoAnterior.value,
         chkCarga.checked,
         cantidadCarga.value == '' ? 0 : cantidadCarga.value
     );
@@ -85,7 +95,7 @@ form.addEventListener("submit", (event) => {
     const fila = tabla.insertRow();
     const celdaNombre = fila.insertCell();
     celdaNombre.innerHTML = persona.getNombre();
-    
+
     const celdaApellidos = fila.insertCell();
     celdaApellidos.innerHTML = persona.getApellidos();
 
@@ -114,14 +124,14 @@ form.addEventListener("submit", (event) => {
 
 
 
-    form.reset();
+
     limpiar();
 
 
 });
 
 
-btnLimpiar.addEventListener("click",limpiar)
+btnLimpiar.addEventListener("click", limpiar)
 
 
 
@@ -164,11 +174,11 @@ class Afiliado {
     montoAsignacion = 0;
     sueldoTotal = this.sueldoActual;
 
-    getNombre(){
+    getNombre() {
         return this.nombre;
     }
 
-    getApellidos(){
+    getApellidos() {
         return this.apellidos;
     }
 
@@ -179,8 +189,8 @@ class Afiliado {
         return currencyFormatter({ currency: "CLP", value: this.sueldoActual });
     }
 
-    getCarga(){
-        return this.carga?"SI":"NO";
+    getCarga() {
+        return this.carga ? "SI" : "NO";
     }
 
     getAsignacion() {
@@ -198,15 +208,15 @@ class Afiliado {
         return `${currencyFormatter({ currency: "CLP", value: this.montoAsignacion })}`;
     }
 
-    getCantidadCarga(){
+    getCantidadCarga() {
         return this.cantidadCarga;
     }
 
 
     getSueldoTotal() {
-        if(parseInt(this.sueldoActual) > 0){
+        // if (parseInt(this.sueldoActual) > 0) {
 
-        }
+        // }
         return `${currencyFormatter({ currency: "CLP", value: (parseInt(this.montoAsignacion * this.cantidadCarga) + parseInt(this.sueldoActual)) })}`
     }
 
