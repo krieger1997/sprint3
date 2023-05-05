@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="shortcut icon" href="./assets/img/logo_awakelab_transparente.png" type="image/x-icon">
-
+    <link rel="stylesheet" href="./assets/css/main.css">
     <title>SPRINT FINAL - MÓDULO 3</title>
 </head>
 
@@ -26,53 +26,133 @@
         <!-- fin del navbar bootstrap -->
     </div>
 
-    <div class="container mb-5">
+    <div class="container-fluid contenedor mb-5 pt-5 px-5">
         <div class="row">
-            <div class="col-6 justify-content-center">
+            <div class="col-xl-4 py-4 glasmorfismo mb-3">
                 <form id="formulario">
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" required>
-                        <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="apellidos" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" id="apellidos" required>
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label for="sueldoActual" class="form-label">Sueldo actual</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">$</span>
-                            <input type="number" class="form-control" id="sueldoActual" required>
+                    <div class="row ">
+                        <div class="col-12">
+                            <h3>Datos personales</h3>
                         </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="sueldoAnterior" class="form-label">Sueldo semestre anterior</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">$</span>
-                            <input type="number" class="form-control" id="sueldoAnterior" required>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" required placeholder="Pedro">
+                                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                            </div>
                         </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="apellidos" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="apellidos" required placeholder="Pascal">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3 ">
+                                <label class="form-label" for="fechaNac">Fecha Nacimiento</label>
+                                <input type="date" class="form-control" id="fechaNac" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 d-flex justify-content-center align-items-center">
+                            <div class="form-check form-switch d-flex align-items-center gap-2">
+                                <input class="form-check-input switch" type="checkbox" role="switch" id="activo" >
+                                <label class="form-check-label" for="activo">Trabajador activo</label>
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="carga">
-                        <label class="form-check-label" for="carga">Posee carga familiar</label>
+                    <div class="row mt-3 oculto" id="segundo">
+                        <div class="col-12">
+                            <h3>Datos laborales</h3>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-3 ">
+                                <label class="form-label" for="fechaIngreso">Fecha Ingreso organización</label>
+                                <input type="date" class="form-control" id="fechaIngreso" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="sueldoActual">Sueldo actual</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="sueldoActual">
+                            </div>
+                        </div>
+                                                
+                        <div class="col-md-6">
+                            <label class="form-label" for="sueldoAnterior">Sueldo semestre anterior</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="sueldoAnterior">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 d-flex justify-content-center align-items-center">
+                            <div class="form-check form-switch d-flex align-items-center gap-2">
+                                <input class="form-check-input switch" type="checkbox" role="switch" id="carga">
+                                <label class="form-check-label" for="carga">Cargas familiares</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="cantidadCarga" class="form-label">Cantidad Cargas</label>
+                                <input type="number" min="1" max="20" class="form-control" id="cantidadCarga" disabled>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="mb-3">
-                        <label for="cantidadCarga" class="form-label">Cantidad carga familiar</label>
-                        <input type="number" class="form-control" id="cantidadCarga" disabled>
-                    </div>
 
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+
+                    <div class="d-grid gap-2 mt-3" id="submit">
+                        <button  type="submit" class="btn btn-primary botonDePana text-light">Enviar</button>
+                    </div>
+                    <div class="d-grid gap-2 mt-3" id="limpiar" class="oculto">
+                        <button id="button__limpiar" type="submit" class="btn btn-info botonDePana text-light">Limpiar</button>
+                    </div>
                 </form>
 
-                <div id="resultado"  class="form-text text-succes fw-bold"></div>
 
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <div class="col-xl-1"></div>
+            <div class="col-xl-7 glasmorfismo py-3 table-responsive" >
+                <table class="table table-light table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Apellido</th>
+                            <th class="text-center">Fecha<br>Nacimiento</th>
+                           
+                            <th class="text-center">Sueldo<br>Actual</th>
+                            <!-- <th class="text-center">Sueldo<br>Semestre Anterior</th> -->
+                            <th class="text-center">Cargas<br>Familiares</th>
+                            <th class="text-center">Monto<br>Asignación<br>Simple</th>
+                            <th class="text-center">Cantidad<br>Cargas Familiares</th>
+                            <!-- <th class="text-center">Monto<br>Asignación<br>Total</th> -->
+                            <th class="text-center">Sueldo<br>Final</th>
+                            <th class="text-center">Permanencia<br>Trabajo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -83,16 +163,17 @@
 
     </div>
 
-    <div class="div-footer bg-body-tertiary bg-dark fixed-bottom" data-bs-theme="dark">
+    <div class="div-footer bg-body-tertiary bg-dark  py-2" data-bs-theme="dark">
 
         <footer class="">
-          <p class="d-flex justify-content-center text-light">
-            Todos los derechos reservados | 2023 |
-          </p>
-          <span class="d-flex justify-content-center text-light">Claudio Cabrera - Carolina Saez Redital - Gustavo Solar - Guillermo
-            Malvoa - Carlos Beltrán</span>
+            <p class="d-flex justify-content-center text-light">
+                Todos los derechos reservados | 2023 |
+            </p>
+            <span class="d-flex justify-content-center text-light">Claudio Cabrera - Carolina Saez Redital - Gustavo
+                Solar - Guillermo
+                Malvoa - Carlos Beltrán</span>
         </footer>
-      </div>
+    </div>
 
     <script src="./assets/js/main.js"></script>
 

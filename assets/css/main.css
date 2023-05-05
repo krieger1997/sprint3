@@ -1,0 +1,57 @@
+body {
+    background-color: #d9d9d9;
+}
+
+.glasmorfismo {
+    background: rgba(255, 255, 255, 0.66);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.7px);
+    -webkit-backdrop-filter: blur(7.7px);
+}
+
+.botonDePana {
+    background-color: #00C7CB!important;
+    border-color: #00C7CB!important;
+    letter-spacing: .3rem!important;
+    font-weight: bolder!important;
+    font-size: 1.4rem!important;
+}
+
+.botonDePana:hover {
+    background-color: #00b3b6!important;
+}
+
+.contenedor {
+    min-height: 80vh;
+}
+
+.switch {
+    width: 4rem !important;
+    height: 2rem !important;
+}
+
+.form-check-input:checked {
+    background-color: #00C7CB;
+    border-color: #00C7CB;
+}
+
+.form-check-input:focus {
+    border-color: #00b3b6;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem #00b3b64b;
+}
+
+
+.oculto {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease-in-out, height 0.5s ease-in-out;
+}
+
+.visible {
+    opacity: 1;
+    height: auto;
+    transition: opacity 0.5s ease-in-out, height 0.5s ease-in-out;
+}
